@@ -5,7 +5,7 @@ import sys, os
 GRIS = (159, 163, 173)
 FPS = 60
 
-class walkJump():
+class WalkJump(pygame.sprite.Sprite):
     def __init__(self, x, y):
         self.w = 160
         self.h = 256
@@ -54,9 +54,14 @@ class Game():
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [800, 600]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
-        
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('walkJumpPygame')
+        
+        # Instanciamos un WalkJump (personaje)
+        personaje = WalkJump(340,300)
+        # Creamos un grupo de Sprites
+        self.allSprites = pygame.sprite.Group()
+        self.allSprites.add(personaje)
         
     
     def game_over(self):
@@ -66,6 +71,13 @@ class Game():
         
     def render(self, dt):
         self.pantalla.fill(GRIS)
+        
+        # Actualizamos todos los sprite del grupo
+        # Hacemos la llamada del metodo update de Sprite
+        self.allSprites.update(dt)
+        # Pintamos los Sprite del grupo actualizados
+        self.allSprites.draw(self.pantalla)
+        
         
         # Actualizamos la pantalla con lo dibujado.
         self.display.flip()
