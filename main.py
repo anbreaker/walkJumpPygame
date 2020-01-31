@@ -11,6 +11,7 @@ class WalkJump(pygame.sprite.Sprite):
     def __init__(self, x, y):
         self.w = 160
         self.h = 256
+        self.velocidad = 5
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
@@ -47,10 +48,12 @@ class WalkJump(pygame.sprite.Sprite):
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
         
-    
+    # Sobreescribimos el metodo update para las animaciones
     def update(self, dt):
+        # Para las animaciones utilizamos lo que nos devuelve el clock
         self.tiempo_acutal += dt
         
+        # Para acelerar o disminuir las animaciones.
         if self.tiempo_acutal > self.tiempo_animacion:
             # Actualizar tiempo para empezar a contar otro item
             self.tiempo_acutal = 0
@@ -61,9 +64,11 @@ class WalkJump(pygame.sprite.Sprite):
                 
             self.image = self.frames[self.index]
         
-            self.rect.x += 5
+            self.rect.x += self.velocidad
             if self.rect.x > 800:
                 self.rect.x = -160
+                # Incremetamos velociadd por cada llegada al final por ver...
+                self.velocidad += 2
                 
 
 class Game():
