@@ -26,10 +26,11 @@ class WalkJump(pygame.sprite.Sprite):
         self.frames = []
         self.index = 0
         self.num_imagenes = 0
-        self.tiempo_animacion = FPS // 2
+        self.tiempo_animacion = FPS // 4
 
         # Cargamos la imagen
         self.load_frames()
+        self.tiempo_acutal = 0
 
     def load_frames(self):
         sprite_sheet = pygame.image.load('resources/walkJump.png').convert_alpha()
@@ -45,7 +46,25 @@ class WalkJump(pygame.sprite.Sprite):
 
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
-
+        
+    
+    def update(self, dt):
+        self.tiempo_acutal += dt
+        
+        if self.tiempo_acutal > self.tiempo_animacion:
+            # Actualizar tiempo para empezar a contar otro item
+            self.tiempo_acutal = 0
+            self.index += 1
+            
+            if self.index >= self.num_imagenes:
+                self.index = 0
+                
+            self.image = self.frames[self.index]
+        
+            self.rect.x += 5
+            if self.rect.x > 800:
+                self.rect.x = -160
+                
 
 class Game():
     clock = pygame.time.Clock()
@@ -59,8 +78,8 @@ class Game():
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('walkJumpPygame')
 
-        # Instanciamos un WalkJump (personaje)
-        personaje = WalkJump(0, 380)
+        # Instanciamos un WalkJump (personaje) y lo posicionamos
+        personaje = WalkJump(0, 280)
         # Creamos un grupo de Sprites
         self.allSprites = pygame.sprite.Group()
         self.allSprites.add(personaje)
