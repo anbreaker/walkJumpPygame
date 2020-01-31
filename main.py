@@ -37,12 +37,12 @@ class walkJump():
             for columna in range(6):
                 x = columna * self.w
                 
-                recorte = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
-                recorte.blit(sprite_sheet, (0,0), (x, y, self.w, self.h))
-                self.frames.append(recorte)
+                image = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
+                image.blit(sprite_sheet, (0,0), (x, y, self.w, self.h))
+                self.frames.append(image)
                 
         self.num_imagenes = len(self.frames) 
-        self.recorte = self.frames(self.index) 
+        self.image = self.frames[self.index]
             
 
 class Game():
@@ -55,7 +55,7 @@ class Game():
         self.dimensiones = [800, 600]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
         
-         # Titulo de la barra de la aplicacion
+        # Titulo de la barra de la aplicacion
         pygame.display.set_caption('walkJumpPygame')
         
     
