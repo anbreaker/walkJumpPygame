@@ -31,6 +31,18 @@ class walkJump():
         
     def load_frames(self):
         sprite_sheet = pygame.image.load('resources/walkJump.png').convert_alpha()
+        
+        for fila in range(3):
+            y = fila * self.h
+            for columna in range(6):
+                x = columna * self.w
+                
+                recorte = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
+                recorte.blit(sprite_sheet, (0,0), (x, y, self.w, self.h))
+                self.frames.append(recorte)
+                
+        self.num_imagenes = len(self.frames) 
+        self.recorte = self.frames(self.index) 
             
 
 class Game():
