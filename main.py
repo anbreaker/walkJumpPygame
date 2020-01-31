@@ -5,7 +5,35 @@ import sys, os
 GRIS = (159, 163, 173)
 FPS = 60
 
-class Game:
+class walkJump():
+    def __init__(self, x, y):
+        self.w = 160
+        self.h = 256
+        
+        # Inicializamos el Sprite, (ver pygame.doc)
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((self.w,self.h), pygame.SRCALPHA, 32)
+        # Convertimos la imagen en un rectangulo con x,y,w,h, -> devuelve (0,0,68,40)
+        self.rect = self.image.get_rect()
+        # Coordenadas de entrada para posicionamiento -> Pos(x,y)
+        self.rect.x = x
+        self.rect.y = y
+        
+        # Preparacion de los frames
+        # Alamacenamos los frames en una lista
+        self.frames = []
+        self.index = 0
+        self.num_imagenes = 0
+        self.tiempo_animacion = FPS // 2 
+        
+        # Cargamos la imagen
+        self.load_frames()
+        
+    def load_frames(self):
+        sprite_sheet = pygame.image.load('resources/walkJump.png').convert_alpha()
+            
+
+class Game():
     clock = pygame.time.Clock()
     
     def __init__(self):
